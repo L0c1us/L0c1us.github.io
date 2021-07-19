@@ -1007,8 +1007,8 @@
         var result = document.execCommand('copy')
         document.body.removeChild(ta)
         
-          if(result)$(this).text('copy_success')
-          else $(this).text('copy_failure')
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
         
         $(this).blur()
       })).on('mouseleave', function (e) {

