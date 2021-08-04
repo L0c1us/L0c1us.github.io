@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Co1a&#39;s Blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-05T14:53:17.000Z">
-<meta property="article:modified_time" content="2021-07-06T06:21:11.545Z">
+<meta property="article:modified_time" content="2021-08-04T08:11:05.608Z">
 <meta property="article:author" content="Co1a">
 <meta name="twitter:card" content="summary">
 
@@ -333,10 +333,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -608,6 +604,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'tOPPkYcS0BfGepnAfBNsvUn0-gzGzoHsz',
+        appKey: 'ShlceU4pPu0uqtDWIKIVslMX',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
