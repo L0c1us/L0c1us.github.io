@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-07-19T06:03:34.763Z</updated>
+  <updated>2021-07-19T06:06:51.375Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2021/07/06/sqli-labs/"/>
     <id>http://example.com/2021/07/06/sqli-labs/</id>
     <published>2021-07-06T03:49:49.000Z</published>
-    <updated>2021-07-19T06:03:34.763Z</updated>
+    <updated>2021-07-19T06:06:51.375Z</updated>
     
     
     <summary type="html">sqli-labs的爬坑笔记</summary>
